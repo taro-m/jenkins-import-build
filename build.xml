@@ -5,21 +5,44 @@
 
   <property name="zipfile" value="tmp/archive.zip" />
 
-  <target name="import" depends="fetch, extract"/>
+  <target name="import" depends="fetch, extract, touch"/>
 
   <target name="fetch">
+    <delete dir="tmp" />
     <mkdir dir="tmp" />
     <get src="${download_url}" dest="${zipfile}" verbose="true"
       username="" password="" />
   </target>
 
   <target name="extract">
+    <delete dir="extracted" />
+    <mkdir dir="extracted" />
+    <unzip src="${zipfile}" dest="extracted" />
+  </target>
+
+  <target name="touch">
     <delete dir="imported" />
     <mkdir dir="imported" />
-    <unzip src="${zipfile}" dest="imported" />
+    <copy todir="imported">
+      <fileset dir="extracted/archive">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <tstamp>
+      <format property="touch.time" pattern="yyyy-MM-dd&apos;T&apos;hh:mm:ss" />
+    </tstamp>
+    <replaceregexp
+      match="timestamp=&quot;.*&quot;"
+      replace="timestamp=&quot;${touch.time}&quot;"
+      byline="true">
+      <fileset dir="imported">
+        <include name="**/*.xml" />
+      </fileset>
+    </replaceregexp>
   </target>
 
   <target name="clean">
+    <delete dir="extracted" />
     <delete dir="imported" />
     <delete dir="tmp" />
   </target>
