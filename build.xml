@@ -1,8 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <project default="import">
 
-  <property name="download_username" value="" />
-  <property name="download_password" value="" />
+  <property environment="env"/>
+
+  <property name="download_username" value="${env.DOWNLOAD_USERNAME}" />
+  <property name="download_password" value="${env.DOWNLOAD_PASSWORD}" />
 
   <property name="zipfile" value="tmp/archive.zip" />
 
