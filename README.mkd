@@ -1,0 +1,11 @@
+# Project to import build of jenkins
+
+## USAGE
+
+  $ ant -Ddownload_url={SOME_URL}
+
+### Properties
+
+  * download_url: URL to download archive.zip of build.
+  * download_username: (OPTION) username to download BASIC auth.
+  * download_password: (OPTION) password to download BASIC auth.

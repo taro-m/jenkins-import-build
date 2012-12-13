@@ -1,17 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <project default="import">
 
-  <property name="download_url" value="http://ginga:8080/job/SINGLE-TEST/751/artifact/*zip*/archive.zip" />
+  <property name="download_username" value="" />
+  <property name="download_password" value="" />
 
   <property name="zipfile" value="tmp/archive.zip" />
 
   <target name="import" depends="fetch, extract, touch"/>
 
   <target name="fetch">
+    <fail unless="download_url">
+      download_url property is missing.  Use an option like -Ddownload_url={URL}.
+    </fail>
     <delete dir="tmp" />
     <mkdir dir="tmp" />
     <get src="${download_url}" dest="${zipfile}" verbose="true"
-      username="" password="" />
+      username="${download_username}" password="${download_password}" />
   </target>
 
   <target name="extract">
