@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project default="import">
+
+  <property name="download_url" value="http://ginga:8080/job/SINGLE-TEST/751/artifact/*zip*/archive.zip" />
+
+  <property name="zipfile" value="tmp/archive.zip" />
+
+  <target name="import" depends="fetch, extract"/>
+
+  <target name="fetch">
+    <mkdir dir="tmp" />
+    <get src="${download_url}" dest="${zipfile}" verbose="true"
+      username="" password="" />
+  </target>
+
+  <target name="extract">
+    <delete dir="imported" />
+    <mkdir dir="imported" />
+    <unzip src="${zipfile}" dest="imported" />
+  </target>
+
+  <target name="clean">
+    <delete dir="imported" />
+    <delete dir="tmp" />
+  </target>
+
+</project>
