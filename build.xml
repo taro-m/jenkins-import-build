@@ -1,14 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <project default="import">
 
-  <property environment="env"/>
-
-  <property name="download_username" value="${env.DOWNLOAD_USERNAME}" />
-  <property name="download_password" value="${env.DOWNLOAD_PASSWORD}" />
+  <property name="download_username" value="" />
+  <property name="download_password" value="" />
 
   <property name="zipfile" value="tmp/archive.zip" />
 
   <target name="import" depends="fetch, extract, touch"/>
+
+  <target name="echo">
+    <echo>download_url=${download_url}</echo>
+    <echo>download_username=${download_username}</echo>
+    <echo>download_password=${download_password}</echo>
+  </target>
 
   <target name="fetch">
     <fail unless="download_url">
